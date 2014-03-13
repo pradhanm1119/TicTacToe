@@ -9,7 +9,17 @@
 #import "ViewController.h"
 
 @interface ViewController ()
-
+{
+    IBOutlet UILabel *myLabelOne;
+    IBOutlet UILabel *myLabelTwo;
+    IBOutlet UILabel *myLabelThree;
+    IBOutlet UILabel *myLabelFour;
+    IBOutlet UILabel *myLabelFive;
+    IBOutlet UILabel *myLabelSix;
+    IBOutlet UILabel *myLabelSeven;
+    IBOutlet UILabel *myLabelEight;
+    IBOutlet UILabel *myLabelNine;
+}
 @end
 
 @implementation ViewController
