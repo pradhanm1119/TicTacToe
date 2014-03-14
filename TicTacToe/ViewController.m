@@ -64,11 +64,13 @@
         if (self.gameState % 2 == 0)
         {
             self.exOrOh = @"O";
+            whichPlayerLabel.textColor = [UIColor redColor];
             whichPlayerLabel.text = @"Player O";
         }
         else
         {
             self.exOrOh = @"X";
+            whichPlayerLabel.textColor = [UIColor blueColor];
             whichPlayerLabel.text = @"Player X";
         }
     }
@@ -84,7 +86,13 @@
         if (CGRectContainsPoint(myLabelOne.frame, point))
         {
             if (myLabelOne.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelOne.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelOne.textColor = [UIColor redColor]; }
                 myLabelOne.text = self.exOrOh;
+            }
             else if (myLabelOne.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -96,7 +104,13 @@
         if (CGRectContainsPoint(myLabelTwo.frame, point))
         {
             if (myLabelTwo.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelTwo.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelTwo.textColor = [UIColor redColor]; }
                 myLabelTwo.text = self.exOrOh;
+            }
             else if (myLabelTwo.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -108,7 +122,13 @@
         if (CGRectContainsPoint(myLabelThree.frame, point))
         {
             if (myLabelThree.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelThree.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelThree.textColor = [UIColor redColor]; }
                 myLabelThree.text = self.exOrOh;
+            }
             else if (myLabelThree.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -120,7 +140,13 @@
         if (CGRectContainsPoint(myLabelFour.frame, point))
         {
             if (myLabelFour.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelFour.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelFour.textColor = [UIColor redColor]; }
                 myLabelFour.text = self.exOrOh;
+            }
             else if (myLabelFour.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -132,7 +158,13 @@
         if (CGRectContainsPoint(myLabelFive.frame, point))
         {
             if (myLabelFive.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelFive.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelFive.textColor = [UIColor redColor]; }
                 myLabelFive.text = self.exOrOh;
+            }
             else if (myLabelFive.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -144,7 +176,13 @@
         if (CGRectContainsPoint(myLabelSix.frame, point))
         {
             if (myLabelSix.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelSix.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelSix.textColor = [UIColor redColor]; }
                 myLabelSix.text = self.exOrOh;
+            }
             else if (myLabelSix.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -156,7 +194,13 @@
         if (CGRectContainsPoint(myLabelSeven.frame, point))
         {
             if (myLabelSeven.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelSeven.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelSeven.textColor = [UIColor redColor]; }
                 myLabelSeven.text = self.exOrOh;
+            }
             else if (myLabelSeven.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -168,7 +212,13 @@
         if (CGRectContainsPoint(myLabelEight.frame, point))
         {
             if (myLabelEight.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelEight.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelEight.textColor = [UIColor redColor]; }
                 myLabelEight.text = self.exOrOh;
+            }
             else if (myLabelEight.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -180,7 +230,13 @@
         if (CGRectContainsPoint(myLabelNine.frame, point))
         {
             if (myLabelNine.text == nil)
+            {
+                if ([self.exOrOh  isEqual: @"X"])
+                {   myLabelNine.textColor = [UIColor blueColor]; }
+                else
+                {   myLabelNine.textColor = [UIColor redColor]; }
                 myLabelNine.text = self.exOrOh;
+            }
             else if (myLabelNine.text != nil && self.decrementedOnce == NO)
             {
                 --self.gameState;
@@ -192,7 +248,7 @@
     }
     else
     {
-        whichPlayerLabel.textColor = [UIColor redColor];
+        whichPlayerLabel.textColor = [UIColor brownColor];
         whichPlayerLabel.text = @"IT'S A TIE";
     }
 }
