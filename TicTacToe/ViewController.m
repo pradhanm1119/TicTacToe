@@ -23,6 +23,7 @@
 }
 @property (weak, nonatomic) NSString *exOrOh;
 @property (assign, nonatomic) NSInteger gameState;
+@property (assign, nonatomic) BOOL newGame;
 @property (strong, nonatomic) IBOutlet UIImageView *ticTacToeBoard;
 
 //@property (strong, nonatomic) IBOutlet UILabel *whichPlayerLabel;
@@ -46,9 +47,10 @@
     myLabelSeven.text = nil;
     myLabelEight.text = nil;
     myLabelNine.text = nil;
-    whichPlayerLabel.text = @"Player 1's Turn (X)";
+    whichPlayerLabel.text = @"Player 1 - BEGIN";
     self.exOrOh = @"X";
     self.gameState = 0;
+    self.newGame = YES;
 }
 
 - (IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer
@@ -67,6 +69,8 @@
         self.exOrOh = @"X";
         whichPlayerLabel.text = @"Player 1's Turn (X)";
     }
+    
+    ++self.gameState;
 }
 
 - (void)findLabelUsingPoint:(CGPoint)point
@@ -77,87 +81,61 @@
         if (CGRectContainsPoint(myLabelOne.frame, point))
         {
             if (myLabelOne.text == nil)
-            {
                 myLabelOne.text = self.exOrOh;
-                ++self.gameState;
-            }
         }
         
         if (CGRectContainsPoint(myLabelTwo.frame, point))
         {
             if (myLabelTwo.text == nil)
-            {
                 myLabelTwo.text = self.exOrOh;
-                ++self.gameState;
-            }
         }
         
         if (CGRectContainsPoint(myLabelThree.frame, point))
         {
             if (myLabelThree.text == nil)
-            {
                 myLabelThree.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
     
         if (CGRectContainsPoint(myLabelFour.frame, point))
         {
             if (myLabelFour.text == nil)
-            {
                 myLabelFour.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
     
         if (CGRectContainsPoint(myLabelFive.frame, point))
         {
             if (myLabelFive.text == nil)
-            {
                 myLabelFive.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
 
         if (CGRectContainsPoint(myLabelSix.frame, point))
         {
             if (myLabelSix.text == nil)
-            {
                 myLabelSix.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
 
         if (CGRectContainsPoint(myLabelSeven.frame, point))
         {
             if (myLabelSeven.text == nil)
-            {
                 myLabelSeven.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
     
         if (CGRectContainsPoint(myLabelEight.frame, point))
         {
             if (myLabelEight.text == nil)
-            {
                 myLabelEight.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
     
         if (CGRectContainsPoint(myLabelNine.frame, point))
         {
             if (myLabelNine.text == nil)
-            {
                 myLabelNine.text = self.exOrOh;
-                ++self.gameState;;
-            }
         }
         
+    }
     else
         NSLog(@"GAME OVER");
-    }
+    
 }
 
 - (void)didReceiveMemoryWarning
