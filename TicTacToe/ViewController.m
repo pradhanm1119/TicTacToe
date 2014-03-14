@@ -21,6 +21,10 @@
     IBOutlet UILabel *myLabelNine;
     IBOutlet UILabel *whichPlayerLabel;
 }
+@property (weak, nonatomic) NSString *exOrOh;
+@property (assign, nonatomic) NSInteger gameState;
+@property (strong, nonatomic) IBOutlet UIImageView *ticTacToeBoard;
+
 //@property (strong, nonatomic) IBOutlet UILabel *whichPlayerLabel;
 @end
 
@@ -28,69 +32,131 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	[self initialize];
+}
+
+- (void)initialize
+{
+    myLabelOne.text = nil;
+    myLabelTwo.text = nil;
+    myLabelThree.text = nil;
+    myLabelFour.text = nil;
+    myLabelFive.text = nil;
+    myLabelSix.text = nil;
+    myLabelSeven.text = nil;
+    myLabelEight.text = nil;
+    myLabelNine.text = nil;
+    whichPlayerLabel.text = @"Player 1's Turn (X)";
+    self.exOrOh = @"X";
+    self.gameState = 0;
 }
 
 - (IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer
 {
-    BOOL gameStarted = NO;
-    whichPlayerLabel.text = @"X";
-    
+    NSLog(@"%d", self.gameState);
     CGPoint point = [tapGestureRecognizer locationInView:self.view];
     [self findLabelUsingPoint:point];
     
-    if (gameStarted == NO)
+    if (self.gameState % 2 == 0)
     {
-        whichPlayerLabel.text = @"O";
-        
+        self.exOrOh = @"O";
+        whichPlayerLabel.text = @"Player 2's Turn (O)";
+    }
+    else
+    {
+        self.exOrOh = @"X";
+        whichPlayerLabel.text = @"Player 1's Turn (X)";
     }
 }
 
 - (void)findLabelUsingPoint:(CGPoint)point
 {
-    // Tic Tac Toe Grid
-    if (CGRectContainsPoint(myLabelOne.frame, point))
+    if (self.gameState < 9)
     {
-        NSLog(@"Label One");
-    }
-    if (CGRectContainsPoint(myLabelTwo.frame, point))
-    {
-        NSLog(@"Label Two");
-    }
-    if (CGRectContainsPoint(myLabelThree.frame, point))
-    {
-        NSLog(@"Label Three");
-    }
-    if (CGRectContainsPoint(myLabelFour.frame, point))
-    {
-        NSLog(@"Label Four");
-    }
-    if (CGRectContainsPoint(myLabelFive.frame, point))
-    {
-        NSLog(@"Label Five");
-    }
-    if (CGRectContainsPoint(myLabelSix.frame, point))
-    {
-        NSLog(@"Label Six");
-    }
-    if (CGRectContainsPoint(myLabelSeven.frame, point))
-    {
-        NSLog(@"Label Seven");
-    }
-    if (CGRectContainsPoint(myLabelEight.frame, point))
-    {
-        NSLog(@"Label Eight");
-    }
-    if (CGRectContainsPoint(myLabelNine.frame, point))
-    {
-        NSLog(@"Label Nine");
-    }
+        // Tic Tac Toe Grid
+        if (CGRectContainsPoint(myLabelOne.frame, point))
+        {
+            if (myLabelOne.text == nil)
+            {
+                myLabelOne.text = self.exOrOh;
+                ++self.gameState;
+            }
+        }
+        
+        if (CGRectContainsPoint(myLabelTwo.frame, point))
+        {
+            if (myLabelTwo.text == nil)
+            {
+                myLabelTwo.text = self.exOrOh;
+                ++self.gameState;
+            }
+        }
+        
+        if (CGRectContainsPoint(myLabelThree.frame, point))
+        {
+            if (myLabelThree.text == nil)
+            {
+                myLabelThree.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
     
-    // Player turn
-    if (CGRectContainsPoint(whichPlayerLabel.frame, point))
-    {
-        NSLog(@"Which player?");
+        if (CGRectContainsPoint(myLabelFour.frame, point))
+        {
+            if (myLabelFour.text == nil)
+            {
+                myLabelFour.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
+    
+        if (CGRectContainsPoint(myLabelFive.frame, point))
+        {
+            if (myLabelFive.text == nil)
+            {
+                myLabelFive.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
+
+        if (CGRectContainsPoint(myLabelSix.frame, point))
+        {
+            if (myLabelSix.text == nil)
+            {
+                myLabelSix.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
+
+        if (CGRectContainsPoint(myLabelSeven.frame, point))
+        {
+            if (myLabelSeven.text == nil)
+            {
+                myLabelSeven.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
+    
+        if (CGRectContainsPoint(myLabelEight.frame, point))
+        {
+            if (myLabelEight.text == nil)
+            {
+                myLabelEight.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
+    
+        if (CGRectContainsPoint(myLabelNine.frame, point))
+        {
+            if (myLabelNine.text == nil)
+            {
+                myLabelNine.text = self.exOrOh;
+                ++self.gameState;;
+            }
+        }
+        
+    else
+        NSLog(@"GAME OVER");
     }
 }
 
