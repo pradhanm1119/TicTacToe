@@ -10,6 +10,7 @@
 
 @interface ViewController ()
 {
+    // The nine squares on the Tic Tac Toe board
     IBOutlet UILabel *myLabelOne;
     IBOutlet UILabel *myLabelTwo;
     IBOutlet UILabel *myLabelThree;
@@ -19,22 +20,42 @@
     IBOutlet UILabel *myLabelSeven;
     IBOutlet UILabel *myLabelEight;
     IBOutlet UILabel *myLabelNine;
+    
+    // Displays X or O player
     IBOutlet UILabel *whichPlayerLabel;
+    
+    // Button that resets game
     IBOutlet UIButton *playAgain;
 }
 
+// Identifies Player X or Player O turn
 @property (weak, nonatomic) NSString *playerTurn;
+
+// Determines which player's turn it is
 @property (assign, nonatomic) NSInteger gameState;
 
+// Prevents corruption of gameState in case user clicks a square twice or more
 @property (assign, nonatomic) BOOL decrementedOnce;
+
+// Returns 'YES' is game is over
 @property (assign, nonatomic) BOOL gameOver;
 
+// Returns 'YES' is Player X wins the game
 @property (assign, nonatomic) BOOL xIsWinner;
+
+// Returns 'YES' if Player O wins the game
 @property (assign, nonatomic) BOOL oIsWinner;
+
+// Returns 'YES' if Player X starts the game
 @property (assign, nonatomic) BOOL xStarts;
+
+// Returns 'YES' if Player O starts the game
 @property (assign, nonatomic) BOOL oStarts;
 
+// Image of the Tic Tac Toe board
 @property (strong, nonatomic) IBOutlet UIImageView *ticTacToeBoard;
+
+// "Play again?" button
 @property (nonatomic, retain) IBOutlet UIButton *playAgain;
 
 @end
@@ -48,6 +69,7 @@
 	[self initialize];
 }
 
+// Initialize the game
 - (void)initialize
 {
     myLabelOne.text         = nil;
@@ -76,6 +98,7 @@
     
 }
 
+// Implementation of "Play again?" button
 - (void)pressPlayAgain:(id)sender
 {
     myLabelOne.text         = nil;
@@ -90,6 +113,7 @@
     
     whichPlayerLabel.textColor = [UIColor blackColor];
 
+    // Initializes board for Player X
     if (self.xStarts == YES) {
         whichPlayerLabel.text   = @"Player X - BEGIN";
         
@@ -98,6 +122,7 @@
         self.decrementedOnce    = NO;
         self.gameOver           = NO;
     }
+    // Initializes board for Player O
     else if (self.oStarts == YES)
     {
         whichPlayerLabel.text   = @"Player O - BEGIN";
@@ -114,15 +139,22 @@
 
 - (IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer
 {
+    // Invokes "pressPlayAgain" method upon touching "Play again?" button
     [playAgain addTarget:self action:@selector(pressPlayAgain:) forControlEvents:UIControlEventTouchDown];
+    
+    // X,Y location of where player touches the screen
     CGPoint point = [tapGestureRecognizer locationInView:self.view];
+    
+    // Invokes "findLabelUsingPoint" method using "point"
     [self findLabelUsingPoint:point];
     
     if (self.gameState < 9)
     {
+        // Determine winner while board is playable
         [self findWinner];
     }
     
+    // Determines player's turn if Player X starts
     if (self.xStarts == YES)
     {
         if (self.gameState % 2 == 0)
@@ -144,6 +176,7 @@
                 self.playerTurn = nil;
         }
     }
+    // Determines player's turn if Player Y starts
     else if (self.oStarts == YES)
     {
         if (self.gameState % 2 == 0)
@@ -166,33 +199,39 @@
         }
     }
     
+    // Counter that tracks progress of game
     ++self.gameState;
     
+    // Determines final result of the game
     if (self.gameState > 8)
     {
+        // Player X wins
         if (self.xIsWinner == YES) {
             whichPlayerLabel.textColor = [UIColor blueColor];
             whichPlayerLabel.text      = @"Player X wins!!!";
             self.xStarts               = NO;
             self.oStarts               = YES;
         }
+        // Player O wins
         else if (self.oIsWinner == YES) {
             whichPlayerLabel.textColor = [UIColor redColor];
             whichPlayerLabel.text      = @"Player O wins!!!";
             self.xStarts               = YES;
             self.oStarts               = NO;
         }
+        // Cat's Game
         else
         {
             whichPlayerLabel.textColor = [UIColor blackColor];
-            whichPlayerLabel.text      = @"GAME OVER";
+            whichPlayerLabel.text      = @"CAT'S GAME :3";
         }
     }
 }
 
+// Detects which square on the board is tapped and populates it with X or O based on which player's turn
 - (void)findLabelUsingPoint:(CGPoint)point
 {
-    // Tic Tac Toe Grid
+    // Square 1 is tapped
     if (CGRectContainsPoint(myLabelOne.frame, point))
     {
         if (myLabelOne.text == nil)
@@ -203,6 +242,7 @@
             {   myLabelOne.textColor = [UIColor redColor]; }
             myLabelOne.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelOne.text != nil && self.decrementedOnce == NO)
         {
                 --self.gameState;
@@ -211,7 +251,7 @@
         }
     else self.decrementedOnce = NO;
     
-    
+    // Square 2 is tapped
     if (CGRectContainsPoint(myLabelTwo.frame, point))
     {
         if (myLabelTwo.text == nil)
@@ -222,6 +262,7 @@
             {   myLabelTwo.textColor = [UIColor redColor]; }
             myLabelTwo.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelTwo.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -230,6 +271,7 @@
     }
     else self.decrementedOnce = NO;
     
+    // Square 3 is tapped
     if (CGRectContainsPoint(myLabelThree.frame, point))
     {
         if (myLabelThree.text == nil)
@@ -240,6 +282,7 @@
             {   myLabelThree.textColor = [UIColor redColor]; }
             myLabelThree.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelThree.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -248,6 +291,7 @@
     }
     else self.decrementedOnce = NO;
     
+    // Square 4 is tapped
     if (CGRectContainsPoint(myLabelFour.frame, point))
     {
         if (myLabelFour.text == nil)
@@ -258,6 +302,7 @@
             {   myLabelFour.textColor = [UIColor redColor]; }
             myLabelFour.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelFour.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -265,7 +310,8 @@
         }
     }
     else self.decrementedOnce = NO;
-
+    
+    // Square 5 is tapped
     if (CGRectContainsPoint(myLabelFive.frame, point))
     {
         if (myLabelFive.text == nil)
@@ -276,6 +322,7 @@
             {   myLabelFive.textColor = [UIColor redColor]; }
             myLabelFive.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelFive.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -284,6 +331,7 @@
     }
     else self.decrementedOnce = NO;
 
+    // Square 6 is tapped
     if (CGRectContainsPoint(myLabelSix.frame, point))
     {
         if (myLabelSix.text == nil)
@@ -294,6 +342,7 @@
             {   myLabelSix.textColor = [UIColor redColor]; }
             myLabelSix.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelSix.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -302,6 +351,7 @@
     }
     else self.decrementedOnce = NO;
 
+    // Square 7 is tapped
     if (CGRectContainsPoint(myLabelSeven.frame, point))
     {
         if (myLabelSeven.text == nil)
@@ -312,6 +362,7 @@
             {   myLabelSeven.textColor = [UIColor redColor]; }
             myLabelSeven.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelSeven.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -320,6 +371,7 @@
     }
     else self.decrementedOnce = NO;
     
+    // Square 8 is tapped
     if (CGRectContainsPoint(myLabelEight.frame, point))
     {
         if (myLabelEight.text == nil)
@@ -330,6 +382,7 @@
             {   myLabelEight.textColor = [UIColor redColor]; }
             myLabelEight.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelEight.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -338,6 +391,7 @@
     }
     else self.decrementedOnce = NO;
     
+    // Square 9 is tapped
     if (CGRectContainsPoint(myLabelNine.frame, point))
     {
         if (myLabelNine.text == nil)
@@ -348,6 +402,7 @@
             {   myLabelNine.textColor = [UIColor redColor]; }
             myLabelNine.text = self.playerTurn;
         }
+        // Prevents mutiple taps on same square
         else if (myLabelNine.text != nil && self.decrementedOnce == NO)
         {
             --self.gameState;
@@ -358,6 +413,7 @@
     
 }
 
+// Class method; returns 'YES' if all three strings match
 - (BOOL)isGameOver:(NSString *)label1 :(NSString *)label2 :(NSString *)label3
 {
     if ([label1 isEqual:label2])
@@ -367,6 +423,7 @@
     return NO;
 }
 
+// Class method; returns 'YES' if all three strings are empty
 - (BOOL)isLabelNull:(NSString *)label1 :(NSString *)label2 :(NSString *)label3
 {
     if ((label1 = nil) && (label2 = nil) && (label3 = nil))
@@ -375,6 +432,7 @@
     return NO;
 }
 
+// Class method; determines winner of the game for eight possible outcomes
 - (void)findWinner
 {
     if ([self isLabelNull:myLabelOne.text :myLabelTwo.text :myLabelThree.text] == NO) {
