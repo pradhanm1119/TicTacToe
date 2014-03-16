@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  TicTacToe
+//  TicTacToe/Users/manaspradhan/Desktop/MobileMakers/TicTacToe/TicTacToe/ViewController.m
 //
 //  Created by Manas Pradhan on 3/13/14.
 //  Copyright (c) 2014 Manas Pradhan. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-@interface ViewController () <UIAlertViewDelegate, UIActionSheetDelegate>
+@interface ViewController ()
 {
     IBOutlet UILabel *myLabelOne;
     IBOutlet UILabel *myLabelTwo;
@@ -20,19 +20,28 @@
     IBOutlet UILabel *myLabelEight;
     IBOutlet UILabel *myLabelNine;
     IBOutlet UILabel *whichPlayerLabel;
-    //IBOutlet UILabel *winner;
+    IBOutlet UIButton *playAgain;
 }
+
 @property (weak, nonatomic) NSString *playerTurn;
 @property (assign, nonatomic) NSInteger gameState;
+
 @property (assign, nonatomic) BOOL decrementedOnce;
 @property (assign, nonatomic) BOOL gameOver;
+
+@property (assign, nonatomic) BOOL xIsWinner;
+@property (assign, nonatomic) BOOL oIsWinner;
+@property (assign, nonatomic) BOOL xStarts;
+@property (assign, nonatomic) BOOL oStarts;
+
 @property (strong, nonatomic) IBOutlet UIImageView *ticTacToeBoard;
+@property (nonatomic, retain) IBOutlet UIButton *playAgain;
 
 @end
 
-UIAlertView *av;
-
 @implementation ViewController
+
+@synthesize playAgain;
 
 - (void)viewDidLoad
 {
@@ -41,60 +50,119 @@ UIAlertView *av;
 
 - (void)initialize
 {
-    myLabelOne.text = nil;
-    myLabelTwo.text = nil;
-    myLabelThree.text = nil;
-    myLabelFour.text = nil;
-    myLabelFive.text = nil;
-    myLabelSix.text = nil;
-    myLabelSeven.text = nil;
-    myLabelEight.text = nil;
-    myLabelNine.text = nil;
-    whichPlayerLabel.text = @"Player X - BEGIN";
+    myLabelOne.text         = nil;
+    myLabelTwo.text         = nil;
+    myLabelThree.text       = nil;
+    myLabelFour.text        = nil;
+    myLabelFive.text        = nil;
+    myLabelSix.text         = nil;
+    myLabelSeven.text       = nil;
+    myLabelEight.text       = nil;
+    myLabelNine.text        = nil;
     
-    self.playerTurn = @"X";
-    self.gameState = 0;
-    self.decrementedOnce = NO;
-    self.gameOver = NO;
+    whichPlayerLabel.textColor = [UIColor blackColor];
+    whichPlayerLabel.text   = @"Player X - BEGIN";
+    self.playerTurn         = @"X";
+    
+    self.gameState          = 0;
+    self.decrementedOnce    = NO;
+    self.gameOver           = NO;
+    
+    self.xIsWinner          = NO;
+    self.oIsWinner          = NO;
+    self.xStarts            = YES;
+    self.oStarts            = NO;
+    //[playAgain addTarget:self action:@selector(methodTouchDown:) forControlEvents:UIControlEventTouchDown];
+    
+}
+
+- (void)pressPlayAgain:(id)sender
+{
+    myLabelOne.text         = nil;
+    myLabelTwo.text         = nil;
+    myLabelThree.text       = nil;
+    myLabelFour.text        = nil;
+    myLabelFive.text        = nil;
+    myLabelSix.text         = nil;
+    myLabelSeven.text       = nil;
+    myLabelEight.text       = nil;
+    myLabelNine.text        = nil;
+    
+    whichPlayerLabel.textColor = [UIColor blackColor];
+
+    if (self.xStarts == YES) {
+        whichPlayerLabel.text   = @"Player X - BEGIN";
+        
+        self.playerTurn         = @"X";
+        self.gameState          = 0;
+        self.decrementedOnce    = NO;
+        self.gameOver           = NO;
+    }
+    else if (self.oStarts == YES)
+    {
+        whichPlayerLabel.text   = @"Player O - BEGIN";
+    
+        self.playerTurn         = @"O";
+        self.gameState          = 0;
+        self.decrementedOnce    = NO;
+        self.gameOver           = NO;
+    }
+    
+    self.xIsWinner = NO;
+    self.oIsWinner = NO;
 }
 
 - (IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer
 {
-//    NSLog(@"%d", self.gameState);
-    
-//    if ([self isLabelNull:self.myLabelArray[0] :self.myLabelArray[1] :self.myLabelArray[2]]) {
-//        if([self isGameOver:self.myLabelArray[0] :self.myLabelArray[1] :self.myLabelArray[2]])
-//            whichPlayerLabel.text = [self.playerTurn stringByAppendingString:@" WINS!!"];
-//    }
+    [playAgain addTarget:self action:@selector(pressPlayAgain:) forControlEvents:UIControlEventTouchDown];
     CGPoint point = [tapGestureRecognizer locationInView:self.view];
     [self findLabelUsingPoint:point];
     
     if (self.gameState < 9)
     {
-        if ([self isLabelNull:myLabelOne.text :myLabelTwo.text :myLabelThree.text] == NO) {
-            if ([self isGameOver:myLabelOne.text :myLabelTwo.text :myLabelThree.text] == YES) {
-                if ([myLabelOne.text isEqualToString:@"X"]) {
-                    self.gameState = 100;
-                }
-                else {
-                    self.gameState = 100;
-                }
-            }
-        }
-        
+        [self findWinner];
+    }
+    
+    if (self.xStarts == YES)
+    {
         if (self.gameState % 2 == 0)
         {
-            self.playerTurn = @"O";
+            self.playerTurn            = @"O";
             whichPlayerLabel.textColor = [UIColor redColor];
-            whichPlayerLabel.text = @"Player O's turn!!";
+            whichPlayerLabel.text      = @"Player O's turn!!";
+        
+            if (self.gameState > 9)
+            self.playerTurn = nil;
+        }
+        else
+        {
+            self.playerTurn            = @"X";
+            whichPlayerLabel.textColor = [UIColor blueColor];
+            whichPlayerLabel.text      = @"Player X's turn!!";
+        
+            if (self.gameState > 9)
+                self.playerTurn = nil;
+        }
+    }
+    else if (self.oStarts == YES)
+    {
+        if (self.gameState % 2 == 0)
+        {
+            self.playerTurn            = @"X";
+            whichPlayerLabel.textColor = [UIColor blueColor];
+            whichPlayerLabel.text      = @"Player X's turn!!";
+            
             if (self.gameState > 9)
                 self.playerTurn = nil;
         }
         else
         {
-            self.playerTurn = @"X";
-            whichPlayerLabel.textColor = [UIColor blueColor];
-            whichPlayerLabel.text = @"Player X's turn!!";
+            self.playerTurn            = @"O";
+            whichPlayerLabel.textColor = [UIColor redColor];
+            whichPlayerLabel.text      = @"Player O's turn!!";
+            
+            if (self.gameState > 9)
+                self.playerTurn = nil;
         }
     }
     
@@ -102,8 +170,23 @@ UIAlertView *av;
     
     if (self.gameState > 8)
     {
-        whichPlayerLabel.textColor = [UIColor blackColor];
-        whichPlayerLabel.text = @"GAME OVER";
+        if (self.xIsWinner == YES) {
+            whichPlayerLabel.textColor = [UIColor blueColor];
+            whichPlayerLabel.text      = @"Player X wins!!!";
+            self.xStarts               = NO;
+            self.oStarts               = YES;
+        }
+        else if (self.oIsWinner == YES) {
+            whichPlayerLabel.textColor = [UIColor redColor];
+            whichPlayerLabel.text      = @"Player O wins!!!";
+            self.xStarts               = YES;
+            self.oStarts               = NO;
+        }
+        else
+        {
+            whichPlayerLabel.textColor = [UIColor blackColor];
+            whichPlayerLabel.text      = @"GAME OVER";
+        }
     }
 }
 
@@ -292,16 +375,129 @@ UIAlertView *av;
     return NO;
 }
 
-//- (void)alertView:(UIAlertView *)alertView gameOver:(NSInteger)buttonIndex
-//{
-//    if (buttonIndex == 1)
-//    {
-//        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"Game is finished.  Play again?" delegate:self cancelButtonTitle:@"Yes" destructiveButtonTitle:@"No" otherButtonTitles:nil];
-//        
-//        [sheet showInView:self.view];
-//    }
-//    [self initialize];
-//}
+- (void)findWinner
+{
+    if ([self isLabelNull:myLabelOne.text :myLabelTwo.text :myLabelThree.text] == NO) {
+        if ([self isGameOver:myLabelOne.text :myLabelTwo.text :myLabelThree.text] == YES) {
+            
+            if ([myLabelOne.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+            else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelFour.text :myLabelFive.text :myLabelSix.text] == NO) {
+        if ([self isGameOver:myLabelFour.text :myLabelFive.text :myLabelSix.text] == YES) {
+            
+            if ([myLabelFour.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelSeven.text :myLabelEight.text :myLabelNine.text] == NO) {
+        if ([self isGameOver:myLabelSeven.text :myLabelEight.text :myLabelNine.text] == YES) {
+            
+            if ([myLabelSeven.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelOne.text :myLabelFour.text :myLabelSeven.text] == NO) {
+        if ([self isGameOver:myLabelOne.text :myLabelFour.text :myLabelSeven.text] == YES) {
+            
+            if ([myLabelOne.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelTwo.text :myLabelFive.text :myLabelEight.text] == NO) {
+        if ([self isGameOver:myLabelTwo.text :myLabelFive.text :myLabelEight.text] == YES) {
+            
+            if ([myLabelTwo.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelThree.text :myLabelSix.text :myLabelNine.text] == NO) {
+        if ([self isGameOver:myLabelThree.text :myLabelSix.text :myLabelNine.text] == YES) {
+            
+            if ([myLabelThree.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelOne.text :myLabelFive.text :myLabelNine.text] == NO) {
+        if ([self isGameOver:myLabelOne.text :myLabelFive.text :myLabelNine.text] == YES) {
+            
+            if ([myLabelOne.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+    
+    if ([self isLabelNull:myLabelThree.text :myLabelFive.text :myLabelSeven.text] == NO) {
+        if ([self isGameOver:myLabelThree.text :myLabelFive.text :myLabelSeven.text] == YES) {
+            
+            if ([myLabelThree.text isEqualToString:@"X"]) {
+                self.xIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            } else {
+                self.oIsWinner             = YES;
+                self.gameState             = 100;
+                self.gameOver              = YES;
+            }
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
