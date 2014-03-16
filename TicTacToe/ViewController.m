@@ -26,10 +26,18 @@
     
     // Button that resets game
     IBOutlet UIButton *playAgain;
+    
+    IBOutlet UIButton *xButton;
+    
+    IBOutlet UIButton *oButton;
+    
 }
 
 // Identifies Player X or Player O turn
 @property (weak, nonatomic) NSString *playerTurn;
+
+// Computer's turn
+@property (assign, nonatomic) NSInteger cpuTurn;
 
 // Determines which player's turn it is
 @property (assign, nonatomic) NSInteger gameState;
@@ -37,8 +45,8 @@
 // Prevents corruption of gameState in case user clicks a square twice or more
 @property (assign, nonatomic) BOOL decrementedOnce;
 
-// Returns 'YES' is game is over
-@property (assign, nonatomic) BOOL gameOver;
+//// Returns 'YES' is game is over
+//@property (assign, nonatomic) BOOL gameOver;
 
 // Returns 'YES' is Player X wins the game
 @property (assign, nonatomic) BOOL xIsWinner;
@@ -58,11 +66,16 @@
 // "Play again?" button
 @property (nonatomic, retain) IBOutlet UIButton *playAgain;
 
+@property (nonatomic, retain) IBOutlet UIButton *xButton;
+@property (nonatomic, retain) IBOutlet UIButton *oButton;
+
 @end
 
 @implementation ViewController
 
 @synthesize playAgain;
+@synthesize xButton;
+@synthesize oButton;
 
 - (void)viewDidLoad
 {
@@ -88,7 +101,8 @@
     
     self.gameState          = 0;
     self.decrementedOnce    = NO;
-    self.gameOver           = NO;
+    //self.gameOver           = NO;
+    self.cpuTurn            = 0;
     
     self.xIsWinner          = NO;
     self.oIsWinner          = NO;
@@ -96,6 +110,26 @@
     self.oStarts            = NO;
     //[playAgain addTarget:self action:@selector(methodTouchDown:) forControlEvents:UIControlEventTouchDown];
     
+}
+
+// Play as "X"
+- (void)pressX:(id)sender
+{
+    whichPlayerLabel.text   = @"Player X - BEGIN";
+    
+    self.playerTurn         = @"X";
+    self.gameState          = 0;
+    self.decrementedOnce    = NO;
+}
+
+// Play as "O"
+- (void)pressO:(id)sender
+{
+    whichPlayerLabel.text   = @"Player O - BEGIN";
+    
+    self.playerTurn         = @"O";
+    self.gameState          = 0;
+    self.decrementedOnce    = NO;
 }
 
 // Implementation of "Play again?" button
@@ -120,7 +154,7 @@
         self.playerTurn         = @"X";
         self.gameState          = 0;
         self.decrementedOnce    = NO;
-        self.gameOver           = NO;
+        //self.gameOver           = NO;
     }
     // Initializes board for Player O
     else if (self.oStarts == YES)
@@ -130,7 +164,7 @@
         self.playerTurn         = @"O";
         self.gameState          = 0;
         self.decrementedOnce    = NO;
-        self.gameOver           = NO;
+        //self.gameOver           = NO;
     }
     
     self.xIsWinner = NO;
@@ -441,12 +475,12 @@
             if ([myLabelOne.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
             else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -457,11 +491,11 @@
             if ([myLabelFour.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -472,11 +506,11 @@
             if ([myLabelSeven.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -487,11 +521,11 @@
             if ([myLabelOne.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -502,11 +536,11 @@
             if ([myLabelTwo.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -517,11 +551,11 @@
             if ([myLabelThree.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -532,11 +566,11 @@
             if ([myLabelOne.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
@@ -547,11 +581,11 @@
             if ([myLabelThree.text isEqualToString:@"X"]) {
                 self.xIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             } else {
                 self.oIsWinner             = YES;
                 self.gameState             = 100;
-                self.gameOver              = YES;
+                //self.gameOver              = YES;
             }
         }
     }
