@@ -90,21 +90,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9r-lu-hou">
-                                <rect key="frame" x="135" y="393" width="28" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="X">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xo-PS-TYN">
-                                <rect key="frame" x="161" y="393" width="23" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="O">
-                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -122,11 +107,9 @@
                         <outlet property="myLabelSix" destination="q8f-0K-N0P" id="P2m-oK-bwR"/>
                         <outlet property="myLabelThree" destination="hAJ-8I-oAa" id="f0b-bC-fDn"/>
                         <outlet property="myLabelTwo" destination="ffa-6a-Dqt" id="hDt-K3-29w"/>
-                        <outlet property="oButton" destination="6xo-PS-TYN" id="fDZ-cg-DQb"/>
                         <outlet property="playAgain" destination="yaM-Ah-RCS" id="xDG-Yz-FDL"/>
                         <outlet property="ticTacToeBoard" destination="Ofr-0L-wPP" id="0gj-P3-Yt9"/>
                         <outlet property="whichPlayerLabel" destination="O84-o1-WLX" id="tFc-qz-If4"/>
-                        <outlet property="xButton" destination="w9r-lu-hou" id="QZU-ZA-3wr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

@@ -27,9 +27,9 @@
     // Button that resets game
     IBOutlet UIButton *playAgain;
     
-    IBOutlet UIButton *xButton;
-    
-    IBOutlet UIButton *oButton;
+//    IBOutlet UIButton *xButton;
+//    
+//    IBOutlet UIButton *oButton;
     
 }
 
@@ -60,22 +60,28 @@
 // Returns 'YES' if Player O starts the game
 @property (assign, nonatomic) BOOL oStarts;
 
+// Returns 'YES' if X button is pressed
+@property (assign, nonatomic) BOOL xButtonPressed;
+
+// Returns 'YES' if O button is pressed
+@property (assign, nonatomic) BOOL oButtonPressed;
+
 // Image of the Tic Tac Toe board
 @property (strong, nonatomic) IBOutlet UIImageView *ticTacToeBoard;
 
 // "Play again?" button
 @property (nonatomic, retain) IBOutlet UIButton *playAgain;
 
-@property (nonatomic, retain) IBOutlet UIButton *xButton;
-@property (nonatomic, retain) IBOutlet UIButton *oButton;
+//@property (nonatomic, retain) IBOutlet UIButton *xButton;
+//@property (nonatomic, retain) IBOutlet UIButton *oButton;
 
 @end
 
 @implementation ViewController
 
 @synthesize playAgain;
-@synthesize xButton;
-@synthesize oButton;
+//@synthesize xButton;
+//@synthesize oButton;
 
 - (void)viewDidLoad
 {
@@ -112,25 +118,31 @@
     
 }
 
-// Play as "X"
-- (void)pressX:(id)sender
-{
-    whichPlayerLabel.text   = @"Player X - BEGIN";
-    
-    self.playerTurn         = @"X";
-    self.gameState          = 0;
-    self.decrementedOnce    = NO;
-}
-
-// Play as "O"
-- (void)pressO:(id)sender
-{
-    whichPlayerLabel.text   = @"Player O - BEGIN";
-    
-    self.playerTurn         = @"O";
-    self.gameState          = 0;
-    self.decrementedOnce    = NO;
-}
+//// Play as "X"
+//- (void)pressX:(id)sender
+//{
+//    self.xStarts            = YES;
+//    whichPlayerLabel.text   = @"Player X - BEGIN";
+//    
+//    self.playerTurn         = @"X";
+//    self.gameState          = 0;
+//    self.decrementedOnce    = NO;
+//    
+//    self.xButtonPressed     = YES;
+//}
+//
+//// Play as "O"
+//- (void)pressO:(id)sender
+//{
+//    self.oStarts            = YES;
+//    whichPlayerLabel.text   = @"Player O - BEGIN";
+//    
+//    self.playerTurn         = @"O";
+//    self.gameState          = 0;
+//    self.decrementedOnce    = NO;
+//    
+//    self.oButtonPressed     = YES;
+//}
 
 // Implementation of "Play again?" button
 - (void)pressPlayAgain:(id)sender
@@ -173,8 +185,25 @@
 
 - (IBAction)onLabelTapped:(UITapGestureRecognizer *)tapGestureRecognizer
 {
+//    [xButton addTarget:self action:@selector(pressX:) forControlEvents:UIControlEventTouchDown];
+//    [oButton addTarget:self action:@selector(pressO:) forControlEvents:UIControlEventTouchDown];
+    
     // Invokes "pressPlayAgain" method upon touching "Play again?" button
     [playAgain addTarget:self action:@selector(pressPlayAgain:) forControlEvents:UIControlEventTouchDown];
+    
+    // Disable X and O buttons if X is pressed
+//    if (self.xButtonPressed == YES)
+//    {
+//        xButton.enabled = NO;
+//        oButton.enabled = NO;
+//    }
+//    
+//    // Disable X and O buttons if O is pressed
+//    if (self.oButtonPressed == YES)
+//    {
+//        xButton.enabled = NO;
+//        oButton.enabled = NO;
+//    }
     
     // X,Y location of where player touches the screen
     CGPoint point = [tapGestureRecognizer locationInView:self.view];
