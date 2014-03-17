@@ -101,7 +101,7 @@
     myLabelEight.text       = nil;
     myLabelNine.text        = nil;
     
-    whichPlayerLabel.textColor = [UIColor blackColor];
+    whichPlayerLabel.textColor = [UIColor blueColor];
     whichPlayerLabel.text   = @"Player X - BEGIN";
     self.playerTurn         = @"X";
     
@@ -161,6 +161,7 @@
 
     // Initializes board for Player X
     if (self.xStarts == YES) {
+        whichPlayerLabel.textColor = [UIColor blueColor];
         whichPlayerLabel.text   = @"Player X - BEGIN";
         
         self.playerTurn         = @"X";
@@ -171,6 +172,7 @@
     // Initializes board for Player O
     else if (self.oStarts == YES)
     {
+        whichPlayerLabel.textColor = [UIColor redColor];
         whichPlayerLabel.text   = @"Player O - BEGIN";
     
         self.playerTurn         = @"O";
